@@ -30,6 +30,15 @@ class MentionTagTextEditingController extends TextEditingController {
 
   final List<MentionTagElement> _mentions = [];
 
+  void removeAllMentions() {
+    try {
+      _mentions.clear();
+      super.text = super.text.replaceAll(Constants.mentionEscape, '');
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   /// Get the list of data associated with you mentions, if no data was given the mention labels will be returned.
   List get mentions =>
       List.from(_mentions.map((mention) => mention.data ?? mention.mention));
